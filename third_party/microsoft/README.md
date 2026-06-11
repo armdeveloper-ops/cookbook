@@ -1,4 +1,4 @@
-# Microsoft Cook Book Workspace
+# Microsoft Cookbook Workspace
 
 This folder contains a small set of sample projects and experiments built around Microsoft Azure AI, Mistral models, and document intelligence workflows. The material is intended for quick exploration rather than production deployment.
 
