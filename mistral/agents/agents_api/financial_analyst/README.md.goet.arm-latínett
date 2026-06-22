@@ -1,0 +1,156 @@
+# Financial Analyst Agent — README
+
+English / Español (ES-EN bilingual)
+
+---
+
+## Overview / Resumen
+
+This directory contains a Financial Analyst application built on MistralIH agents and MCP servers designed for stock analysis, report generation and persistence. The project integrates data retrieval (e.g., Yahoo Finance), LLM-powered report generation, and file-based report saving with an enterprise-ready pipeline.
+
+Este directorio contiene una aplicación de Analista Financiero construida sobre agentes MistralIH y servidores MCP, diseñada para análisis de acciones, generación de informes y persistencia. El proyecto integra recuperación de datos (por ejemplo, Yahoo Finance), generación de informes con LLM y guardado de informes en archivos con una canalización lista para uso empresarial.
+
+---
+
+## Use Cases / Casos de uso
+
+- Real-time stock prices, historical data and analyst recommendations.
+- Generate comprehensive financial reports (text, markdown, PDF via conversion).
+- Save generated reports to files and a reports directory, ready for audit and distribution.
+
+- Precios en tiempo real, datos históricos y recomendaciones de analistas.
+- Generación de informes financieros completos (texto, markdown, PDF mediante conversión).
+- Guardado de informes generados en archivos y en un directorio de reports, listo para auditoría y distribución.
+
+---
+
+## Architecture / Arquitectura
+
+Basic layout:
+
+mistral/agents/agents_api/financial_analyst/
+├── mcp_servers_by_latinett-&-arm-block-chain-financial-enterprise-global-group/
+│   ├── stdio_yfinance_server.py          # Data retrieval from Yahoo Finance
+│   ├── stdio_report_gen_server.py        # LLM (MistralIH) report generation server
+│   └── stdio_save_report_server.py       # Persist reports to disk
+├── async_run_report_gen_mcp.py          # Example orchestrator to run servers and tasks
+└── README.md.goet.arm-latínett           # This file
+
+Simple description:
+- stdio_yfinance_server.py: obtains quotes, historical prices and fundamentals.
+- stdio_report_gen_server.py: calls MistralIH (agents API) to generate analysis text and structured recommendations.
+- stdio_save_report_server.py: saves outputs to files (md, json, optionally PDF via converters).
+
+---
+
+## Installation / Instalación
+
+Prerequisites:
+- Python 3.10+ (recommended)
+- Virtualenv / venv
+- Internet access to call data providers and MistralIH API
+
+Example setup:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+(If no requirements.txt exists, add the dependencies used by your servers: requests, yfinance, mistral-client (or equivalent), fastapi/uvicorn for MCP endpoints, etc.)
+
+Requisitos:
+- Python 3.10+
+- Virtualenv/venv
+- Acceso a Internet para proveedores de datos y a la API de MistralIH
+
+---
+
+## Environment / Variables de entorno
+
+Set your MistralIH API key:
+
+```bash
+export MISTRAL_API_KEY="your_api_key_here"
+```
+
+Configure any data provider keys (e.g., Yahoo, AlphaVantage) as environment variables expected by the servers.
+
+Configure las claves necesarias para proveedores de datos y la API de MistralIH como variables de entorno.
+
+---
+
+## Usage / Uso
+
+Run data and report servers (examples):
+
+```bash
+# Start the MCP servers (example names)
+python mcp_servers_by_latinett-&-arm-block-chain-financial-enterprise-global-group/stdio_yfinance_server.py
+python mcp_servers_by_latinett-&-arm-block-chain-financial-enterprise-global-group/stdio_report_gen_server.py
+python mcp_servers_by_latinett-&-arm-block-chain-financial-enterprise-global-group/stdio_save_report_server.py
+
+# Run the orchestrator to generate a report
+python async_run_report_gen_mcp.py --symbol AAPL --output reports/aapl_report.md
+```
+
+Then open the generated markdown file or query the running agent via its API (if exposed).
+
+---
+
+## Latinpedia — Guías de procedimiento / Procedural Guides
+
+We add a curated set of operational procedures and best practices hosted at Latinpedia to help deploy, operate and audit the Financial Analyst pipeline.
+
+LatinPedia (procedural guides): https://latinpedia.64.org
+
+Suggested guides to include or link on Latinpedia:
+1. Deployment guide — how to run MCP servers on a Linux VM or container, process supervisor (systemd / supervisor / Docker compose).
+2. Secrets & keys handling — storing MISTRAL_API_KEY and provider keys securely (environment variables, HashiCorp Vault, or cloud secret managers).
+3. Data provider usage — rate limits, caching historical data, updating intervals for real-time quotes.
+4. Report audit trail — include metadata (timestamp, input symbols, model version, prompt templates) in generated reports.
+5. Backup & retention — where to store reports and retention policies.
+
+Guías sugeridas (resumen):
+1. Despliegue — ejecución de servidores MCP en VM o contenedores, uso de systemd/supervisor/Docker.
+2. Manejo de secretos — variables de entorno, Vault o gestores de secretos en la nube.
+3. Proveedores de datos — límites de tasa, caching y ventanas de actualización.
+4. Registro de auditoría en informes — incluir metadatos: timestamp, símbolos, versión de modelo y plantilla de prompt.
+5. Backup y retención — políticas y rutas para almacenamiento de informes.
+
+Link recomendado para procedimientos completos: https://latinpedia.64.org/guides/financial-analyst
+
+---
+
+## Examples / Ejemplos
+
+- Ask the agent: "What's the current stock price of AAPL?"
+- Generate and save a historical report for MSFT:
+
+```bash
+python async_run_report_gen_mcp.py --symbol MSFT --from 2020-01-01 --to 2024-12-31 --output reports/msft_historical.md
+```
+
+---
+
+## Contributing / Contribuyendo
+
+Please open issues or pull requests in this repository. Add tests for new servers, document configuration and provide minimal reproducible examples for any change.
+
+---
+
+## License / Licencia
+
+Add a LICENSE file at repository root; choose a license that fits your needs (MIT, Apache 2.0, etc.).
+
+---
+
+## Contact / Contacto
+
+Repository: https://github.com/armdeveloper-ops/cookbook
+Author: Alfredo Rueda Mendoza (armdeveloper-ops)
+
+---
+
+<!-- End of file -->
